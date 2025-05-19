@@ -2,31 +2,36 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api";
 import Alert from "../components/Alert";
+import { useAuth } from "../context/AuthContext";
 
+//declare both email and password as object 
 const Login = () => {
+    const { login } = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
-  const [alert, setAlert] = useState({ message: "", type: "" });
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  //spread operatopr to copy form, name of the input field that triggered the change.
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("/auth/login", form);
-      localStorage.setItem("token", res.data.token);
-      setAlert({ message: "Login successful!", type: "success" });
+      login(res.data.token, res.data.user); 
+      setMessage("Login successful!");
       setTimeout(() => navigate("/blogs"), 1000);
     } catch (err) {
-      setAlert({ message: err.response?.data?.message || "Login failed.", type: "error" });
+      setMessage("Login failed.");
     }
   };
 
   return (
     <div className="max-w-md mx-auto mt-10 p-4 border rounded shadow">
       <h2 className="text-xl font-bold mb-4">Login</h2>
-      <Alert message={alert.message} type={alert.type} />
+      <Alert message={message} />
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="email"

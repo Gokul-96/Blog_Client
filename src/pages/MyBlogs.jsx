@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api";
-import { getToken, getUser } from "../utils/auth";
+import { getToken, getUser } from "../../utils/auth";
 import Alert from "../components/Alert";
 import BlogCard from "../components/BlogCard";
 

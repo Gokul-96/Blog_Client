@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "../api";
-import { getToken } from "../utils/auth";
+import { getToken } from "../../utils/auth";
 import Alert from "../components/Alert";
 
 const EditBlog = () => {

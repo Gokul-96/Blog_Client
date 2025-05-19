@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "../api";
 import { useNavigate } from "react-router-dom";
-import { getToken, getUser } from "../utils/auth";
+import { getToken, getUser } from "../../utils/auth";
 import Alert from "../components/Alert";
 
 const CreateBlog = () => {
